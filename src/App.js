@@ -23,7 +23,7 @@ export default function App() {
             <Form />
           </Route>
           <Route path="/thankyou/:order">
-            <Thankyou name={products} />
+            <Thankyou orders={products} />
           </Route>
         <Route path="/shop/:itemId/valueterm/:moreInfo">
           <Item items={products} />

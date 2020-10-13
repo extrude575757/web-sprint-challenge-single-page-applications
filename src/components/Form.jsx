@@ -1,9 +1,10 @@
 import React,  { useState, useEffect } from 'react'
 import '../App.css';
 import axios from 'axios'
-import { BrowserRouter as Route, Link, useRouteMatch } from 'react-router-dom'
+import { BrowserRouter as Route, Link, useRouteMatch, useParams } from 'react-router-dom'
 // import React, from 'react'
 import Fbtn from './Fbtn';
+import Thankyou from './Thankyou';
 import Ordered from './Ordered';
 
 const Form = (props) =>{
@@ -45,11 +46,12 @@ const Form = (props) =>{
    
     const handleSubmite = (e) =>{
         e.preventDefault();
+        console.log(order);
 
         if(sub === false){
             // e.preventDefault();
             setSub(true);
-        axios.post(`/thankyou/`,order)
+        axios.post(`${url}/thankyou/`,order)
         .then(evn =>{
             // debugger;
             console.log('ev')
@@ -74,7 +76,7 @@ const Form = (props) =>{
     return (
         sub
         ?
-        <Route  history={props.history} path={`${path}/thankyou/:order`} render={(props) => <Ordered order={order} />} />
+        <Route  history={props.history} path={`${path}/thankyou/:order`} render={(props) => <Thankyou orders={props.order} />} />
                 :
         <div className="App">
             <label htmlFor={"oForm"}>Lambda EEtz: Order Form</label>
@@ -99,7 +101,7 @@ const Form = (props) =>{
                 
                 
                     
-                    <Fbtn theOrder={order} />
+                    <Fbtn id={order}theOrder={order.name} />
                     
                 
                
