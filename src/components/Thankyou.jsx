@@ -1,7 +1,7 @@
 import React from "react"
 import {useParams, useHistory, useRouteMatch} from 'react-router-dom';
 
-const  Thankyou = props => {
+const  Thankyou = (props) => {
     const {order}  = useParams();
 const {orders} = props;
     if(props != null){
@@ -12,7 +12,7 @@ const {orders} = props;
     
     return (
         <div>
-            Thank you comeagain {order.name}
+            Thank you comeagain {orders}
         </div>
     );
 };

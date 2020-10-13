@@ -1,17 +1,31 @@
 import React, { useState } from "react";
 import "./styles.css";
+import * as serviceWorker from './serviceWorker';
 import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Item from "./components/Item";
 import { Route, Link, Switch } from "react-router-dom";
 import data from "./data";
+import Ordered from "./components/Ordered"
 import Form from "./components/Form";
 import Heading from "./components/Heading";
 import Thankyou from "./components/Thankyou";
 export default function App() {
    
-  const [products, setProducts] = useState(data);
+  const [products, setProducts] = useState(['name','value']);
+  const [addNewO,setAddNewO ] = useState([{}]);
+  const addNew = (note) =>{
+    const newNote = {
+      id: Date.now(),
+      name: note.name,
+      Psize: note.Psize,
+      pep: note.pep, pine: note.pine, olive: note.olive, sardines: note.sardines
+    };
 
+    setAddNewO([...addNewO, newNote]);
+    console.log('newnote');
+    console.log(addNewO);
+  };
   return (
    <div className="App">
      <Heading />
@@ -20,12 +34,13 @@ export default function App() {
 
 
           <Route path="/pizza">
-            <Form />
+            <Form id={addNewO.id}addNew={addNew} />
           </Route>
           <Route path="/thankyou/:order">
-            <Thankyou orders={products} />
+            <Thankyou orders={addNewO.name} />
+            
           </Route>
-        <Route path="/shop/:itemId/valueterm/:moreInfo">
+        {/* <Route path="/shop/:itemId/valueterm/:moreInfo">
           <Item items={products} />
         </Route>
         <Route path="/shop/:itemId">
@@ -35,7 +50,7 @@ export default function App() {
         <Route
           path="/shop"
           render={(props) => <Shop history={props.history} items={products} />}
-        />
+        /> */}
 
     
         <Route path="/" component={Home} />
@@ -43,3 +58,15 @@ export default function App() {
     </div>
   );
 }
+
+
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
+
+// // If you want your app to work offline and load faster, you can change
+// // unregister() to register() below. Note this comes with some pitfalls.
+// // Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

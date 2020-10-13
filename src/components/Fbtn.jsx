@@ -1,20 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../App.css';
-import { Router, Link, useRouteMatch, useHistory, useParams } from 'react-router-dom'
-// import React, from 'react'
+import Ordered from './Ordered';
 import data from '../data';
+import { Router, Link, Route, useRouteMatch, useHistory, useParams } from 'react-router-dom'
+// import React, from 'react'
+// import data from '../data';
 const Fbtn = (props) =>{
     const {theOrder}  = props;
+    const [ord,setOrd] = useState([]);
     const { order } = useParams();
     const history = useHistory();
     const { url, path } = useRouteMatch();
-    const clickIt = () =>{
+    const clickIt = (ev) =>{
+        setOrd(theOrder);
         // history.push(`/thankyou/:order`);
-        history.push(`/thankyou/${theOrder}`);
+        history.push(`/thankyou/:order`);
+        data.push(ord.theOrder)
         // location.reload();
+        //  props.handleSubmite(ev,ord);
+        // props.handleSubmite();
+        
         console.log('clicked')
-        console.log(order);
-        console.log(theOrder);
+        console.log(props);
+        console.log(ord);
+        // return theOrder;
     }
 
 
@@ -30,9 +39,10 @@ const Fbtn = (props) =>{
         
         
             <div>
-            <Link to={`/thankyou/${theOrder}`} >
-            <button key={theOrder.id}onClick={clickIt} name="order">Add 2 Order</button>
+            <Link to={`/thankyou/:order`} >
+            <button key={ord.id}onClick={e =>clickIt(e)} name="order">Add 2 Order</button>
             </Link>
+            
         </div>
         
     );

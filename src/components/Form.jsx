@@ -8,8 +8,8 @@ import Thankyou from './Thankyou';
 import Ordered from './Ordered';
 
 const Form = (props) =>{
-    const [order,setOrder] = useState({name: "", Psize: "",
-                pep: "",pine: "", olive:"", sardines:""})
+    const [order,setOrder] = useState({id:0,name: "", Psize: "",
+    pep: "",pine: "", olive:"", sardines:""} )
     const [sub,setSub] = useState(false)
     const { url, path } = useRouteMatch();
 
@@ -45,29 +45,32 @@ const Form = (props) =>{
 
    
     const handleSubmite = (e) =>{
-        e.preventDefault();
         console.log(order);
+        e.preventDefault();
+        props.addNew(order.theOrder);
+        console.log('handle Submite')
+      
 
-        if(sub === false){
-            // e.preventDefault();
-            setSub(true);
-        axios.post(`${url}/thankyou/`,order)
-        .then(evn =>{
-            // debugger;
-            console.log('ev')
-            console.log(evn);
-            // setRes(evn);
+        // if(sub === false){
+        //     // e.preventDefault();
+        //     setSub(true);
+        // axios.post(`${url}/thankyou/`,order)
+        // .then(evn =>{
+        //     // debugger;
+        //     console.log('ev')
+        //     console.log(evn);
+        //     // setRes(evn);
             
 
-        })
-        .catch(er =>{
-            console.log(er);
-        })
-        }else{
-            console.log('went false');
+        // })
+        // .catch(er =>{
+        //     console.log(er);
+        // })
+        // }else{
+        //     console.log('went false');
 
-            setSub(false);
-        }
+        //     setSub(false);
+        // }
             
             
     };
@@ -80,33 +83,44 @@ const Form = (props) =>{
                 :
         <div className="App">
             <label htmlFor={"oForm"}>Lambda EEtz: Order Form</label>
-            <form name="oForm" className="App" onSubmit={e => handleSubmite(e)}>
+            <form name="oForm" className="App" onSubmit={handleSubmite}>
                 <label htmlFor="name">Name</label>
-                <input onChange={e =>{changeit(e)}}type="text" name="name" />
+                <input 
+                onChange={e =>{changeit(e)}}type="text"
+                 name="name" value={order.name} />
                 <label htmlFor="Psize">Size</label>
-                <select onChange={e => {changer(e)}} name="Psize" required>
+                <select value={order.Psize}onChange={e => {changer(e)}}
+                 name="Psize" required>
                     <option value="XXL">XXL</option>
                     <option value="Large">Large</option>
                     <option value="Small">SMall</option>
                 </select>
                 <label htmlFor="pep">Pepperronie</label>
-                <input  onChange={e => {changer(e)}} type="checkbox" name="pep" />
+                <input value={order.pep}
+                 onChange={e => {changer(e)}}
+                  type="checkbox" name="pep" />
                 <label htmlFor="pine">Pineapple</label>
-                <input  onChange={e => {changer(e)}} type="checkbox" name="pine" />
+                <input  value={order.pine}
+                onChange={e => {changer(e)}} 
+                type="checkbox" name="pine" />
                 <label htmlFor="olive">Olive</label>
-                <input onChange={e => {changer(e)}} type="checkbox" name="olive" />
+                <input value={order.olive}
+                onChange={e => {changer(e)}} type="checkbox"
+                 name="olive" />
                 <label htmlFor="sardines">Sardines</label>
-                <input  onChange={e => {changer(e)}} type="checkbox" name="sardines" />
+                <input value={order.sardines}
+                 onChange={e => {changer(e)}} 
+                 type="checkbox" name="sardines" />
                 <label htmlFor="order">Order Now</label>
                 
                 
                     
-                    <Fbtn id={order}theOrder={order.name} />
+                    <Fbtn id={order}theOrder={order} />
                     
                 
                
             </form>
-            
+           
         </div>
     );
 }
