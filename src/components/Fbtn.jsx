@@ -7,8 +7,9 @@ const Fbtn = (props) =>{
     const history = useHistory();
     const {url} = useRouteMatch();
     const clickIt = () =>{
-        history.push("/pizza")
+        history.push("/thankyou")
         console.log('clicked')
+        console.log(theOrder);
     }
 
 

@@ -13,7 +13,7 @@ const Form = (props) =>{
     const {url,path} = useRouteMatch();
 
     const changeit = (ev) =>{
-        // ev.persist();
+        ev.persist();
         // const ch=    ev.target.type ==="checkbox" ?  {...order, [ev.target.checked]: ev.target.value} : {...order,[ev.target.name]: ev.target.value};
        const ch = {...order,[ev.target.name]: ev.target.value};
        
@@ -28,7 +28,7 @@ const Form = (props) =>{
     };
 
     const changer = (ev) =>{
-        
+        ev.persist();
         if(ev.target.type === "checkbox"){
             console.log("checkbox")
             const chk = {...order,[ev.target.name]: ev.target.value};
@@ -47,9 +47,9 @@ const Form = (props) =>{
         // e.preventDefault();
 
         if(sub === false){
-            // e.preventDefault();
+            e.preventDefault();
             setSub(true);
-        axios.post(`/thankyou`,order)
+        axios.post(`http://localhost:3000/thankyou`,order)
         .then(evn =>{
             // debugger;
             console.log('ev')
@@ -99,7 +99,7 @@ const Form = (props) =>{
                 
                 <Link to={`/thankyou`} >
                     
-                    <Fbtn />
+                    <Fbtn theOrder={order} />
                     </Link>
                 
                
