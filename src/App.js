@@ -22,7 +22,7 @@ export default function App() {
           <Route path="/pizza">
             <Form />
           </Route>
-          <Route path="/thankyou">
+          <Route path="/thankyou/:order">
             <Thankyou name={products} />
           </Route>
         <Route path="/shop/:itemId/valueterm/:moreInfo">

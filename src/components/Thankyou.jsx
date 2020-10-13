@@ -1,11 +1,12 @@
 import React from "react"
 
 function Thankyou(props) {
-const {name} = props.name;
+const {order} = props.name;
+
     console.log(props);
     return (
         <div>
-            Thank you comeagain {name}
+            Thank you comeagain {order}
         </div>
     );
 };

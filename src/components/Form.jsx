@@ -10,7 +10,7 @@ const Form = (props) =>{
     const [order,setOrder] = useState({name: "", Psize: "",
                 pep: "",pine: "", olive:"", sardines:""})
     const [sub,setSub] = useState(false)
-    const {url,path} = useRouteMatch();
+    const { url, path } = useRouteMatch();
 
     const changeit = (ev) =>{
         ev.persist();
@@ -44,12 +44,12 @@ const Form = (props) =>{
 
    
     const handleSubmite = (e) =>{
-        // e.preventDefault();
+        e.preventDefault();
 
         if(sub === false){
-            e.preventDefault();
+            // e.preventDefault();
             setSub(true);
-        axios.post(`http://localhost:3000/thankyou`,order)
+        axios.post(`/thankyou/`,order)
         .then(evn =>{
             // debugger;
             console.log('ev')
@@ -97,10 +97,10 @@ const Form = (props) =>{
                 <input  onChange={e => {changer(e)}} type="checkbox" name="sardines" />
                 <label htmlFor="order">Order Now</label>
                 
-                <Link to={`/thankyou`} >
+                
                     
                     <Fbtn theOrder={order} />
-                    </Link>
+                    
                 
                
             </form>
