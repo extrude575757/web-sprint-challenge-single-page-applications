@@ -100,9 +100,9 @@ const Form = (props) =>{
                 <label htmlFor="name">Name</label>
                 <input data-cy="namer"
                 onChange={e =>{changeit(e)}}type="text"
-                 name="name" value={order.name} />
+                 name="name"  />
                 <label htmlFor="Psize">Size</label>
-                <select onChange={e => {changer(e)}}
+                <select data-cy="psizes" onChange={e => {changer(e)}}
                  name="Psize" required>
                     <option value="XXL">XXL</option>
                     <option value="Large">Large</option>

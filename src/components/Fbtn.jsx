@@ -45,7 +45,7 @@ const Fbtn = (props) =>{
         
             <div>
             <Link to={`/thankyou`} >
-            <button  type="submit" onClick={e =>clickIt(e)} name="orderitnow">Add 2 Order</button>
+            <button data-cy="submitit"  type="submit" onClick={e =>clickIt(e)} name="orderitnow">Add 2 Order</button>
             </Link>
             
         </div>
