@@ -4,15 +4,15 @@ import {useParams, useHistory, useRouteMatch} from 'react-router-dom';
 const  Thankyou = (props) => {
     const {order}  = useParams();
 const {orders} = props;
-    if(props != null){
-        console.log(orders);
-        console.log(order);
-    }
+const gr = (o)=>{
+    console.log(o);
+    return o;
+};
 
     
     return (
         <div>
-            Thank you comeagain {orders}
+            {orders}Thank you comeagain {order}
         </div>
     );
 };

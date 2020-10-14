@@ -7,22 +7,27 @@ import { Router, Link, Route, useRouteMatch, useHistory, useParams } from 'react
 // import data from '../data';
 const Fbtn = (props) =>{
     const {theOrder}  = props;
-    const [ord,setOrd] = useState([]);
+    const [ord,setOrd] = useState([{}]);
     const { order } = useParams();
     const history = useHistory();
     const { url, path } = useRouteMatch();
     const clickIt = (ev) =>{
         setOrd(theOrder);
         // history.push(`/thankyou/:order`);
-        history.push(`/thankyou/:order`);
-        data.push(ord.theOrder)
+        history.push(`/thankyou/?name=${theOrder.name}&Psize=${theOrder.Psize}
+        &pep=${theOrder.pep}&pine=${theOrder.pine}&olive=${theOrder.olive}
+        &sardines=${theOrder.sardines}
+        `);
+        // history.pushState('/thankyou/')
+        // data.push(ord)
         // location.reload();
-        //  props.handleSubmite(ev,ord);
-        // props.handleSubmite();
         
-        console.log('clicked')
-        console.log(props);
+        // props.handleSubmite(ev,ord);
+        
+        console.log(history)
         console.log(ord);
+        console.log(theOrder);
+        props.handleSubmite(ev,ord);
         // return theOrder;
     }
 
@@ -39,8 +44,8 @@ const Fbtn = (props) =>{
         
         
             <div>
-            <Link to={`/thankyou/:order`} >
-            <button key={ord.id}onClick={e =>clickIt(e)} name="order">Add 2 Order</button>
+            <Link to={`/thankyou`} >
+            <button  type="submit" onClick={e =>clickIt(e)} name="orderitnow">Add 2 Order</button>
             </Link>
             
         </div>

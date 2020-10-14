@@ -1,4 +1,5 @@
 import React,  { useState, useEffect } from 'react'
+// import styled from 'styled-components'
 import '../App.css';
 import axios from 'axios'
 import { BrowserRouter as Route, Link, useRouteMatch, useParams } from 'react-router-dom'
@@ -8,11 +9,13 @@ import Thankyou from './Thankyou';
 import Ordered from './Ordered';
 
 const Form = (props) =>{
+    const {formProps} = props;
     const [order,setOrder] = useState({id:0,name: "", Psize: "",
-    pep: "",pine: "", olive:"", sardines:""} )
+    pep: "",pine: "", olive:"", sardines:""} );
+    const [serverError,setServerError] = useState('');
     const [sub,setSub] = useState(false)
     const { url, path } = useRouteMatch();
-
+    const [post,setPost] = useState('');
     const changeit = (ev) =>{
         ev.persist();
         // const ch=    ev.target.type ==="checkbox" ?  {...order, [ev.target.checked]: ev.target.value} : {...order,[ev.target.name]: ev.target.value};
@@ -30,7 +33,7 @@ const Form = (props) =>{
 
     const changer = (ev) =>{
         ev.persist();
-        if(ev.target.type === "checkbox"){
+        if(ev.target.type == "checkbox"){
             console.log("checkbox")
             const chk = {...order,[ev.target.name]: ev.target.value};
             // console.log(chk);
@@ -44,13 +47,23 @@ const Form = (props) =>{
     }
 
    
-    const handleSubmite = (e) =>{
-        console.log(order);
+    const handleSubmite = (e,ords) =>{
+     if(sub === false){
+         
         e.preventDefault();
-        props.addNew(order.theOrder);
-        console.log('handle Submite')
+        // props.addNew(e,ords);
       
+        
+        console.log('handle Submite')
+        console.log(order);
+        
+        setSub(true);
 
+  props.addNew(e,ords);
+
+     }else{
+         setSub(false);
+     }
         // if(sub === false){
         //     // e.preventDefault();
         //     setSub(true);
@@ -79,43 +92,43 @@ const Form = (props) =>{
     return (
         sub
         ?
-        <Route  history={props.history} path={`${path}/thankyou/:order`} render={(props) => <Thankyou orders={props.order} />} />
+        <Route  history={props.history} path={`${path}/thankyou`} render={(props) => <Thankyou orders={props.order} />} />
                 :
         <div className="App">
-            <label htmlFor={"oForm"}>Lambda EEtz: Order Form</label>
-            <form name="oForm" className="App" onSubmit={handleSubmite}>
+            <label htmlFor={"order"}>Lambda EEtz: Order Form</label>
+            <form name="order" className="App" onSubmit={handleSubmite}>
                 <label htmlFor="name">Name</label>
-                <input 
+                <input data-cy="namer"
                 onChange={e =>{changeit(e)}}type="text"
                  name="name" value={order.name} />
                 <label htmlFor="Psize">Size</label>
-                <select value={order.Psize}onChange={e => {changer(e)}}
+                <select onChange={e => {changer(e)}}
                  name="Psize" required>
                     <option value="XXL">XXL</option>
                     <option value="Large">Large</option>
                     <option value="Small">SMall</option>
                 </select>
                 <label htmlFor="pep">Pepperronie</label>
-                <input value={order.pep}
+                <input 
                  onChange={e => {changer(e)}}
                   type="checkbox" name="pep" />
                 <label htmlFor="pine">Pineapple</label>
-                <input  value={order.pine}
+                <input 
                 onChange={e => {changer(e)}} 
                 type="checkbox" name="pine" />
                 <label htmlFor="olive">Olive</label>
-                <input value={order.olive}
+                <input 
                 onChange={e => {changer(e)}} type="checkbox"
                  name="olive" />
                 <label htmlFor="sardines">Sardines</label>
-                <input value={order.sardines}
+                <input 
                  onChange={e => {changer(e)}} 
                  type="checkbox" name="sardines" />
                 <label htmlFor="order">Order Now</label>
                 
                 
                     
-                    <Fbtn id={order}theOrder={order} />
+                    <Fbtn id={order}theOrder={order} handleSubmite={handleSubmite}/>
                     
                 
                
